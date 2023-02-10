@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complejo de Cabañas Las Esmeraldas</title>
+    <link rel="shortcut icon" href="favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/vendor/vegas/vegas.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" 
+    crossorigin="anonymous"></script>
+    
+    <!--CDN jQuery v3.6.3-->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" 
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <!-- Vegas v2.5.4 - built 2021-01-30-->
+    <script src="/vendor/vegas/vegas.min.js"></script>
+    
+    <!--sweetalert2 v11.7.1-->
+    <!--https://sweetalert2.github.io-->
+    <script src="./vendor/sweetalert2-main/sweetalert2.min.js"></script>
+    <script defer src="./js/cabania.js"></script>
+    <script defer src="./js/reserva.js"></script>
+    <script defer src="./js/main.js"></script>
+</head>
+
+<body>
+    <h1>Complejo de cabañas "Las Esmeraldas"</h1>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Reservar</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+    <h2>Reservar Cabañas</h2>
+
+    <form id = "reserva">
+      <fieldset id = "campo">
+        <legend>Reserva</legend>
+        <div class="col-md-8">
+        <label for="nombre">Ingrese su nombre:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control" required></div><br><br>
+        <label for="ingreso">Fecha de ingreso:</label>
+        <input type="date" id="ingreso" name="ingreso" class="form-control" required><br><br>
+        <label for="egreso">Fecha de egreso:</label>
+        <input type="date" id="egreso" name="egreso" class="form-control" required><br><br>
+        <label for="adultos">Cantidad de mayores de 3 años:</label>
+        <input type="number" placeholder="Adultos" id="adultos" class="form-control" required name="adultos" min="1" max="5"/>
+        <label>(Ingrese un valor entre 1 y 5)</label><br><br>
+        <label for="chicos">Cantidad de menores de 3 años:</label>
+        <input type="number" placeholder="Niños" id="chicos" class="form-control" required name="chicos" min="0" max="4"/>
+        <label>(Ingrese un valor entre 0 y 4)</label><br><br>
+
+        <p>Por favor seleccione la cabaña deseada:</p>
+        <input type="radio" id="uraliana" name="cabanias" value="Uraliana" class="form-check-input">
+        <label for="uraliana">Uraliana</label>
+        <input type="radio" id="turmalina" name="cabanias" value="Turmalina" class="form-check-input">
+        <label for="turmalina">Turmalina</label>
+        <input type="radio" id="verdelita" name="cabanias" value="Verdelita" class="form-check-input">
+        <label for="verdelita">Verdelita</label>
+        <input type="radio" id="litia" name="cabanias" value="Litia" class="form-check-input">
+        <label for="litia">Litia</label>
+        <input type="radio" id="laoriental" name="cabanias" value="La Oriental" class="form-check-input">
+        <label for="laoriental">La Oriental</label><br><br>
+
+
+        <input type="submit" id = "boton" class="form-control"></input><br><br>
+    </fieldset><br>
+    </form>
+
+      <div id = "lista">
+        <h4>Cabañas disponibles</h4><br>
+        <table id = "tablaCabanias" class="table table-dark table-striped">
+            <tr>
+              <th>Nombre</th>
+              <th>Capacidad</th>
+              <th>Habitaciones</th>
+            </tr>            
+        </table>
+      </div><br>
+
+      <div> 
+        <h4>Reservas Realizadas</h4><br>
+        <table id = "tablaReservas" class="table table-dark table-striped">
+          <tr class="table-primary">
+            <th>N°</th>
+            <th>Nombre</th>
+            <th>Fecha de ingreso</th>
+            <th>Fecha de egreso</th>
+            <th>Cantidad de huéspedes mayores</th>
+            <th>Cantidad de huéspedes menores</th>
+            <th>Cabaña</th>
+          </tr> 
+        </table><br>
+        <div id = "campoBorrar">
+        <label id ="labelBorrarReserva">Ingrese el númoro de reserva que desea borrar</label>
+        <input type="number" placeholder="N° de reserva" id="reservaABorrar" min="1"></input>
+        <input type="button" class="btn btn-primary btn-lg" id="borrar" value="Borrar"></input></div>
+      </div>
+
+      
+      
+
+</body>
+
+</html>

@@ -1,27 +1,31 @@
 /*
 SCRIPT DESARROLLADO POR GERBAUDO LEANDRO
 
-Tercera Pre Entrega del proyecto final
+Proyecto final
 
 AÑO 2023
 
-✓ Modificación del DOM - Desafío complementario
-✓ Detección de eventos de usuario. Desafío entregable
-✓ Implementación con uso de JSON y Storage.
+Consigna
+Presentarás la página web interactiva en JavaScript que vienes trabajando a lo
+largo del curso. La misma debe simular distintos procesos. Un “simulador” es un
+programa que soluciona ciertas tareas, y proporciona al usuario información de
+valor, de forma coherente y prolija. Utilizarás AJAX y JSON para obtener
+datos y diversas herramientas de JS como librerías, promises y asincronía
+para controlar eventos en la interfaz y producir animaciones en respuesta.
 
 Objetivos generales
-
-Codificar funciones de procesos esenciales y notificación de resultados por HTML, añadiendo interacción 
-al simulador.
-Ampliar y refinar el flujo de trabajo del script en términos de captura de eventos, procesamiento del 
-simulador y notificación de resultados en forma de salidas por HTML, modificando el DOM.
-
+✓ Presentar una aplicación que utilice Javascript para solucionar un problema
+real al usuario.
+✓ Utilizar Javascript para mejorar la interacción y dinamismo de la página,
+generando una interfaz coherente y atractiva.
 
 Objetivos específicos
-
-- Definir eventos a manejar y su función de respuesta.
-- Modificar el DOM, ya sea para definir elementos al cargar la página o para realizar salidas de un procesamiento.
-- Almacenar datos (clave-valor) en el Storage y recuperarlos
+✓ Contar con una estructura de datos clara, basada en Arrays y Objetos.
+✓ Utilizar funciones, condicionales e iteradores para manipular los datos de la app.
+✓ Generar y manipular el DOM. Crear vistas a partir de datos de la app y generar eventos
+para responder a la interacción del usuario. Utilizar alguna librería relevante 
+para el simulador.
+✓ Utilizar asincronía y fetch para cargar datos estáticos o consumir una API.
 
 
  */

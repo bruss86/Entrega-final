@@ -49,6 +49,23 @@ $("body").vegas({
         { src: "/images/Fondo2.jpg" }
     ]
 });
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+let datosFetch;
+let listado = document.querySelector("#listado")
+fetch('https://date.nager.at/api/v3/LongWeekend/2023/AR')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); 
+    datosFetch = data;
+    data.forEach(element => {
+        const li = document.createElement("li");
+        li.innerHTML = `<p>${element.startDate} : ${element.endDate}</p>`
+
+        listado.append(li);
+    });
+    })
+  .catch(error => console.log('error', error));    
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------

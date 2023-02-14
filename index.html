@@ -21,6 +21,9 @@
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <!-- Vegas v2.5.4 - built 2021-01-30-->
     <script src="/vendor/vegas/vegas.min.js"></script>
+
+    <!-- Luxon v3.2.1-->
+    <script src="/vendor/luxon/luxon.min.js"></script>
     
     <!--sweetalert2 v11.7.1-->
     <!--https://sweetalert2.github.io-->
@@ -57,41 +60,52 @@
     </nav>
 
 
-    <h2>Reservar Cabañas</h2>
+    <h2>Reservar Cabaña</h2>
 
-    <form id = "reserva">
-      <fieldset id = "campo">
-        <legend>Reserva</legend>
-        <div class="col-md-8">
-        <label for="nombre">Ingrese su nombre:</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control" required></div><br><br>
-        <label for="ingreso">Fecha de ingreso:</label>
-        <input type="date" id="ingreso" name="ingreso" class="form-control" required><br><br>
-        <label for="egreso">Fecha de egreso:</label>
-        <input type="date" id="egreso" name="egreso" class="form-control" required><br><br>
-        <label for="adultos">Cantidad de mayores de 3 años:</label>
-        <input type="number" placeholder="Adultos" id="adultos" class="form-control" required name="adultos" min="1" max="5"/>
-        <label>(Ingrese un valor entre 1 y 5)</label><br><br>
-        <label for="chicos">Cantidad de menores de 3 años:</label>
-        <input type="number" placeholder="Niños" id="chicos" class="form-control" required name="chicos" min="0" max="4"/>
-        <label>(Ingrese un valor entre 0 y 4)</label><br><br>
+    <div class="contenedor-1">
+      <div class="formReserva">
+        <form id = "reserva">
+          <fieldset id = "campo">
+            <legend>Reserva</legend>
+            <div class="col-md-14">
+            <label for="nombre">Ingrese su nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control" required></div><br><br>
+            <label for="ingreso">Fecha de ingreso:</label>
+            <input type="date" id="ingreso" name="ingreso" class="form-control" required><br><br>
+            <label for="egreso">Fecha de egreso:</label>
+            <input type="date" id="egreso" name="egreso" class="form-control" required><br><br>
+            <label for="adultos">Cantidad de mayores de 3 años:</label>
+            <input type="number" placeholder="Adultos" id="adultos" class="form-control" required name="adultos" min="1" max="5"/>
+            <label>(Ingrese un valor entre 1 y 5)</label><br><br>
+            <label for="chicos">Cantidad de menores de 3 años:</label>
+            <input type="number" placeholder="Niños" id="chicos" class="form-control" required name="chicos" min="0" max="4"/>
+            <label>(Ingrese un valor entre 0 y 4)</label><br><br>
+    
+            <p>Por favor seleccione la cabaña deseada:</p>
+            <input type="radio" id="uraliana" name="cabanias" value="Uraliana" class="form-check-input">
+            <label for="uraliana">Uraliana</label>
+            <input type="radio" id="turmalina" name="cabanias" value="Turmalina" class="form-check-input">
+            <label for="turmalina">Turmalina</label>
+            <input type="radio" id="verdelita" name="cabanias" value="Verdelita" class="form-check-input">
+            <label for="verdelita">Verdelita</label>
+            <input type="radio" id="litia" name="cabanias" value="Litia" class="form-check-input">
+            <label for="litia">Litia</label>
+            <input type="radio" id="laoriental" name="cabanias" value="La Oriental" class="form-check-input">
+            <label for="laoriental">La Oriental</label><br><br>
+    
+    
+            <input type="submit" id = "boton" class="form-control"></input><br><br>
+        </fieldset><br>
+        </form>
 
-        <p>Por favor seleccione la cabaña deseada:</p>
-        <input type="radio" id="uraliana" name="cabanias" value="Uraliana" class="form-check-input">
-        <label for="uraliana">Uraliana</label>
-        <input type="radio" id="turmalina" name="cabanias" value="Turmalina" class="form-check-input">
-        <label for="turmalina">Turmalina</label>
-        <input type="radio" id="verdelita" name="cabanias" value="Verdelita" class="form-check-input">
-        <label for="verdelita">Verdelita</label>
-        <input type="radio" id="litia" name="cabanias" value="Litia" class="form-check-input">
-        <label for="litia">Litia</label>
-        <input type="radio" id="laoriental" name="cabanias" value="La Oriental" class="form-check-input">
-        <label for="laoriental">La Oriental</label><br><br>
+      </div>
+      <div class="dFestivos">
+        <p>Próximos fin de semanas largos</p>
+        <ul id="listado"></ul>
+      </div>
+    </div>
 
-
-        <input type="submit" id = "boton" class="form-control"></input><br><br>
-    </fieldset><br>
-    </form>
+    
 
       <div id = "lista">
         <h4>Cabañas disponibles</h4><br>

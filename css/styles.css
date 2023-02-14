@@ -8,6 +8,17 @@ body{
     padding: 90px;
     min-height: 100vh;
 }
+
+.contenedor-1{
+    display: flex;
+}
+
+.dFestivos{
+    margin-left: auto;
+    width: 400px;
+    height: 600px; 
+}
+
 h1{
     text-align: center;
     font-size: 90px;
@@ -44,10 +55,10 @@ table, th, td {
     font-size: 20px;
 }
 
-fieldset{
-    margin-left: auto;
+.formReserva{
     margin-right: auto;
     width:50%;
+    padding: 20px;
 }
 
 #reservaABorrar, #borrar{

@@ -52,7 +52,29 @@ $("body").vegas({
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 let datosFetch;
-let listado = document.querySelector("#listado")
+let listado = document.querySelector("#listado");
+var DateTime = luxon.DateTime;
+var f = {month: 'long', day: 'numeric'};
+let dti, dtf;
+
+const pedirFeriados = async () => {
+    const resp = await
+    fetch('https://date.nager.at/api/v3/LongWeekend/2023/AR')
+    const data = await resp.json()
+    data.forEach(element => {
+        const li = document.createElement("li");
+        li.classList.add("list-group-item");
+        dti = DateTime.fromISO(element.startDate);
+        dtf = DateTime.fromISO(element.endDate);
+        
+        li.innerHTML = `<p>Desde el ${dti.toLocaleString(f)} al ${dtf.toLocaleString(f)}</p>`
+
+        listado.append(li);
+    })
+}
+
+pedirFeriados();
+/*
 fetch('https://date.nager.at/api/v3/LongWeekend/2023/AR')
   .then(response => response.json())
   .then(data => {
@@ -60,12 +82,24 @@ fetch('https://date.nager.at/api/v3/LongWeekend/2023/AR')
     datosFetch = data;
     data.forEach(element => {
         const li = document.createElement("li");
-        li.innerHTML = `<p>${element.startDate} : ${element.endDate}</p>`
+        li.classList.add("list-group-item");
+        dti = DateTime.fromISO(element.startDate);
+        dtf = DateTime.fromISO(element.endDate);
+        
+        li.innerHTML = `<p>Desde el ${dti.toLocaleString(f)} al ${dtf.toLocaleString(f)}</p>`
+        //li.innerHTML = `<p>Desde el ${element.startDate} al ${element.endDate}</p>`
 
         listado.append(li);
     });
     })
-  .catch(error => console.log('error', error));    
+  .catch(error => console.log('error', error));   
+  
+  
+
+  fetch("./data/reservas.json")
+  .then(response => response.json())
+  .then(data => console.log(data));*/
+
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -122,9 +156,9 @@ const validar = function(e){
     if (validarFecha(idIngreso)||validarFecha(idEgreso)||validarNombre(idNombre)||validarHuespedes()) {
         let texto = "";
 
-        validarNombre(idNombre) === true && (texto = "<h3>No ha ingresado un nombre</h3>");
-        validarFecha(idIngreso) === true && (texto += "<h3>No ha ingresado una fecha de ingreso</h3>");
-        validarFecha(idEgreso) === true && (texto += "<h3>No ha ingresado una fecha de egreso</h3>");
+        validarNombre(idNombre) && (texto = "<h3>No ha ingresado un nombre</h3>");
+        validarFecha(idIngreso) && (texto += "<h3>No ha ingresado una fecha de ingreso</h3>");
+        validarFecha(idEgreso) && (texto += "<h3>No ha ingresado una fecha de egreso</h3>");
         texto += validarHuespedes();
 
         parrafo.innerHTML = texto; 
@@ -136,6 +170,12 @@ const validar = function(e){
         if(valorActivo) {
             parrafo.remove();
             guardarReserva();
+            Swal.fire(
+                'Reserva guardada',
+                'Muchas gracias por elegirnos!',
+                'success'
+              )
+
         } else {
             parrafo.innerHTML = "<h3>No ha seleccionado ninguna cabaña</h3>"; 
             campo.append(parrafo);
@@ -160,12 +200,28 @@ const validarNombre = function(nombre){
 const validarHuespedes = function(){
 
     if (idAdultos.value == "") {
+        Swal.fire(
+            'No ha ingresado la cantidad de mayores',
+            'Ingrese un valor correcto de mayores',
+            'warning'
+          )
         return "<h3>No ha ingresado la cantidad de mayores</h3>";
+        
     } else {
         if (idChicos.value == "") {
+            Swal.fire(
+                'No ha ingresado la cantidad de menores',
+                'Ingrese un valor correcto de menores',
+                'warning'
+              )
             return "<h3>No ha ingresado la cantidad de menores</h3>";
         } else {
             if ((parseInt(idAdultos.value)+parseInt(idChicos.value)) > 5) {
+                Swal.fire(
+                    'Se sobrepasó la cantidad de huéspedes permitido',
+                    'Ingrese una cantidad de huéspedes menor a 5!',
+                    'error'
+                  )
                return "<h3>Se sobrepasó la cantidad de huéspedes permitido (máx. 5)</h3>"; 
             } else {
                 return false;
@@ -177,14 +233,6 @@ const validarHuespedes = function(){
     
 }
 
-
-//function ejecutarBorrar() {
-    //Obtengo el manejador para obtener el número de la reserva a borrar
-    //let reservaABorrar = document.getElementById("reservaABorrar");
-    //localStorage.removeItem(reservaABorrar.value);
-    
-    //guardarReserva();
-//};
 
 idFormulario.addEventListener("submit",validar);
 

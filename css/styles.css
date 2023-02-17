@@ -11,12 +11,28 @@ body{
 
 .contenedor-1{
     display: flex;
+    background-color: rgb(152,177,200);
+    border-radius: 5%;
+}
+
+.tituloReserva{
+    text-align: center;
+    font-size: 30px;
+}
+
+.contenedor-2{
+    width: 600px;
+    background-color: rgb(152,177,200);
+    border-radius: 5%;
 }
 
 .dFestivos{
-    margin-left: auto;
+    margin-left: 100px;
+    margin-top: 50px;
     width: 400px;
-    height: 600px; 
+    height: 600px;
+    overflow-y: scroll; 
+    
 }
 
 h1{

@@ -4,5 +4,26 @@
     "luxon": "^3.2.1",
     "sweetalert2": "^11.7.1",
     "vegas": "^2.5.4"
-  }
+  },
+  "name": "entregafinal",
+  "description": "PROYECTO FINAL DE CODERHOUSE 2023",
+  "version": "1.0.0",
+  "main": "index.html",
+  "devDependencies": {},
+  "scripts": {
+    "test": "-"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bruss86/Entrega-final.git"
+  },
+  "keywords": [
+    "coderhouse"
+  ],
+  "author": "Gerbaudo Leandro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bruss86/Entrega-final/issues"
+  },
+  "homepage": "https://github.com/bruss86/Entrega-final#readme"
 }

@@ -1,5 +1,7 @@
 [
     {"id": 1, "nombre" : "Leandro"},
     {"id": 2, "nombre" : "Anabela"},
-    {"id": 3, "nombre" : "Delfina"}
+    {"id": 3, "nombre" : "Jorge"},
+    {"id": 4, "nombre" : "Osvaldo"},
+    {"id": 5, "nombre" : "Delfina"}
 ]

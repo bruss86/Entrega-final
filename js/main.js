@@ -3,7 +3,7 @@ SCRIPT DESARROLLADO POR GERBAUDO LEANDRO
 
 Proyecto final
 
-AÑO 2023
+Comisión 48445 - AÑO 2023
 
 Consigna
 Presentarás la página web interactiva en JavaScript que vienes trabajando a lo
@@ -29,6 +29,15 @@ para el simulador.
 
 
  */
+//--------Mensaje de bienvenida-------------------------------------------------------------
+
+setTimeout(() => {
+    Swal.fire(
+        "Bienvenido al portal de reservas del Complejo de Cabañas 'Las Esmeraldas'",
+        "Aquí deberá ingresar los datos del huésped y la cabaña elegida, al final podrá controlar o borrar las reservas realizadas"
+    )
+},2000);
+
 //-----------------------------------------------------------------------------------------------------------------------------------------
 let nombreCompleto;
 let cantidad;
@@ -43,6 +52,7 @@ let celdaContadorNumero = 0;
 let cantidadDeReservas;
 const reservas = [];  //Contenedor de las reservas realizadas
 
+//-----------------------------------------------------------------------------------------------------------------------------------------
 $("body").vegas({
     slides: [
         { src: "/images/Fondo1.jpg" },
@@ -74,32 +84,6 @@ const pedirFeriados = async () => {
 }
 
 pedirFeriados();
-/*
-fetch('https://date.nager.at/api/v3/LongWeekend/2023/AR')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data); 
-    datosFetch = data;
-    data.forEach(element => {
-        const li = document.createElement("li");
-        li.classList.add("list-group-item");
-        dti = DateTime.fromISO(element.startDate);
-        dtf = DateTime.fromISO(element.endDate);
-        
-        li.innerHTML = `<p>Desde el ${dti.toLocaleString(f)} al ${dtf.toLocaleString(f)}</p>`
-        //li.innerHTML = `<p>Desde el ${element.startDate} al ${element.endDate}</p>`
-
-        listado.append(li);
-    });
-    })
-  .catch(error => console.log('error', error));   
-  
-  
-
-  fetch("./data/reservas.json")
-  .then(response => response.json())
-  .then(data => console.log(data));*/
-
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -133,6 +117,7 @@ localStorage.getItem("reservas") === null && localStorage.setItem("reservas", 0)
 cantidadDeReservas = parseInt(localStorage.getItem("reservas"));  //Obtenemos la cantidad de reservas guardadas en memoria
 
 cargarReservasTabla();
+
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 let idReserva = document.getElementById("reserva");  //Seleccionamos el formulario
@@ -150,25 +135,17 @@ let idChicos = document.getElementById("chicos");
 let parrafo = document.createElement("p");
 
 const validar = function(e){
-    e.preventDefault();
     
+    e.preventDefault(); //Evitamos que se recarge la página
+    
+    let estadoHuespedes = validarHuespedes();
 
-    if (validarFecha(idIngreso)||validarFecha(idEgreso)||validarNombre(idNombre)||validarHuespedes()) {
-        let texto = "";
+    let valorActivo = document.querySelector('input[name="cabanias"]:checked');
 
-        validarNombre(idNombre) && (texto = "<h3>No ha ingresado un nombre</h3>");
-        validarFecha(idIngreso) && (texto += "<h3>No ha ingresado una fecha de ingreso</h3>");
-        validarFecha(idEgreso) && (texto += "<h3>No ha ingresado una fecha de egreso</h3>");
-        texto += validarHuespedes();
 
-        parrafo.innerHTML = texto; 
-        campo.append(parrafo);
-    } else {
-        
-        let valorActivo = document.querySelector('input[name="cabanias"]:checked');
-        
+    if (estadoHuespedes) {
+
         if(valorActivo) {
-            parrafo.remove();
             guardarReserva();
             Swal.fire(
                 'Reserva guardada',
@@ -177,25 +154,16 @@ const validar = function(e){
               )
 
         } else {
-            parrafo.innerHTML = "<h3>No ha seleccionado ninguna cabaña</h3>"; 
-            campo.append(parrafo);
+            Swal.fire(
+                'No ha seleccionado ninguna cabaña',
+                'Seleccione la cabaña deseada',
+                'warning'
+              )
         }
         
-    }
-    
+    }   
 };
 
-const validarFecha = function(id){
-    
-    return id.value === "" ? true : false;
-
-};
-
-const validarNombre = function(nombre){
-    
-    return nombre.value === "" ? true : false;
-
-};
 
 const validarHuespedes = function(){
 
@@ -205,7 +173,7 @@ const validarHuespedes = function(){
             'Ingrese un valor correcto de mayores',
             'warning'
           )
-        return "<h3>No ha ingresado la cantidad de mayores</h3>";
+          return false;
         
     } else {
         if (idChicos.value == "") {
@@ -214,7 +182,7 @@ const validarHuespedes = function(){
                 'Ingrese un valor correcto de menores',
                 'warning'
               )
-            return "<h3>No ha ingresado la cantidad de menores</h3>";
+              return false;
         } else {
             if ((parseInt(idAdultos.value)+parseInt(idChicos.value)) > 5) {
                 Swal.fire(
@@ -222,9 +190,9 @@ const validarHuespedes = function(){
                     'Ingrese una cantidad de huéspedes menor a 5!',
                     'error'
                   )
-               return "<h3>Se sobrepasó la cantidad de huéspedes permitido (máx. 5)</h3>"; 
+                  return false;
             } else {
-                return false;
+                return true;
             }
         }
         
@@ -274,8 +242,7 @@ btnBorrar.addEventListener("click", function() {
 
                 localStorage.removeItem("R" + reservaABorrar);
                 cargarReservasTabla();
-                parrafo.innerHTML = ""; 
-                campoBorrar.append(parrafo);
+                
 
               swalWithBootstrapButtons.fire(
                 'Borrado!',
@@ -297,9 +264,6 @@ btnBorrar.addEventListener("click", function() {
 
         
     } else {
-
-        parrafo.innerHTML = "<h3>Reserva no encontrada, elija una de la tabla</h3>"; 
-        campoBorrar.append(parrafo);
 
         Swal.fire({
             icon: 'warning',
@@ -334,18 +298,6 @@ const crearComplejo = function(complejo){
 };
 
 crearComplejo(complejoCabanias);
-
-//Funcion constructora de objetos reservas
-
-
-/*
-function Reserva(nombre, fechaIngreso, fechaEgreso, cantidadAdultos, cantidadMenores){
-    this.nombre = nombre;
-    this.fechaIngreso = fechaIngreso;
-    this.fechaEgreso = fechaEgreso;
-    this.cantidadAdultos = cantidadAdultos;
-    this.cantidadMenores = cantidadMenores;
-}*/
 
 
 function borrarTabla(tabla){
